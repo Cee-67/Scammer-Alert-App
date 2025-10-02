@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud Prevention Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+<style type="text/css" id="dcoder_stylesheet">body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #f8f9fa, #e3e3e3);
+    text-align: center;
+    color: #333;
+}
+.dashboard {
+    width: 60%;
+    margin: auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+h1 {
+    color: #d9534f;
+    font-size: 24px;
+}
+.controls button {
+    margin: 10px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+.controls button:hover {
+    transform: scale(1.05);
+}
+.transactions ul {
+    list-style: none;
+    padding: 0;
+}
+.transactions li {
+    padding: 10px;
+    background: #f1f1f1;
+    margin: 6px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.flag {
+    color: red;
+    font-weight: bold;
+    font-size: 20px;
+}
+.chatbot-container {
+    width: 40%;
+    margin: 20px auto;
+    padding: 15px;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+#chatbox {
+    height: 200px;
+    overflow-y: auto;
+    background: #f1f1f1;
+    padding: 10px;
+    border-radius: 6px;
+}
+.bot-message {
+    background: #d9534f;
+    color: white;
+    padding: 8px;
+    border-radius: 6px;
+}
+#user-input {
+    width: 80%;
+    padding: 10px;
+    margin-top: 10px;
+}
+button {
+    padding: 10px;
+    background: #5cb85c;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+</style></head>
+<body>
+    <div class="dashboard">
+        <h1>Fraud Prevention System</h1>
+        <div id="fraud-alerts">
+            <p id="alert-message">🔍 Monitoring transactions...</p>
+        </div>
+        <div class="controls">
+            <button onclick="freezeAccount()">Freeze Account</button>
+            <button onclick="toggleTransactionLock()">Toggle Transaction Lock</button>
+        </div>
+        <div class="transactions">
+            <h2>Recent Transactions</h2>
+            <ul id="transaction-list">
+                <li>Uber Eats - R150 <span class="flag">⚠️</span></li>
+                <li>Takealot - R600 ✅</li>
+                <li>Unknown Payment - R200 <span class="flag">⚠️</span></li>
+            </ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    
+    <div class="chatbot-container">
+    <h2>Emergency Fraud Assistant</h2>
+    <div id="chatbox">
+        <p class="bot-message">Hello! How can I assist you?</p>
+    </div>
+    <input type="text" id="user-input" placeholder="Type your request...">
+    <button onclick="sendMessage()">Send</button>
+</div>
+
+
+<script type="text/javascript" id="dcoder_script">document.addEventListener("DOMContentLoaded", function () {
+    const fraudAlert = document.getElementById("alert-message");
+
+    function freezeAccount() {
+        fraudAlert.innerHTML = "🔒 Account frozen due to suspected fraud!";
+        fraudAlert.style.color = "red";
+        fraudAlert.style.fontWeight = "bold";
+        setTimeout(() => {
+            alert("Your account has been secured.");
+        }, 800);
+    }
+
+    function toggleTransactionLock() {
+        fraudAlert.innerHTML = "🔐 Transaction security lock enabled!";
+        fraudAlert.style.color = "green";
+    }
+
+    function animateFraudAlert() {
+        fraudAlert.style.transform = "scale(1.1)";
+        setTimeout(() => {
+            fraudAlert.style.transform = "scale(1)";
+        }, 500);
+    }
+
+    setInterval(animateFraudAlert, 3000);
+});
+function sendMessage() {
+    let userMessage = document.getElementById("user-input").value;
+    let chatbox = document.getElementById("chatbox");
+
+    let userBubble = document.createElement("p");
+    userBubble.className = "user-message";
+    userBubble.innerText = userMessage;
+    chatbox.appendChild(userBubble);
+
+    let botResponse = document.createElement("p");
+    botResponse.className = "bot-message";
+
+    if (userMessage.toLowerCase().includes("freeze")) {
+        botResponse.innerText = "🔒 Account frozen! Please check for fraudulent transactions.";
+    } else if (userMessage.toLowerCase().includes("report fraud")) {
+        botResponse.innerText = "⚠️ Fraud case reported! A security team will review it.";
+    } else {
+        botResponse.innerText = "I’m here to help! Type 'Freeze Account' or 'Report Fraud'.";
+    }
+    
+    chatbox.appendChild(botResponse);
+    document.getElementById("user-input").value = "";
+}
+</script></body></html>
